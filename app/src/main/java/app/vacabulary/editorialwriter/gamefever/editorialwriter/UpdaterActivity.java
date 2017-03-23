@@ -109,10 +109,10 @@ public class UpdaterActivity extends AppCompatActivity {
         dialog.show();
 
     }
-
+View btnView;
 
     public void btnClick(View view) {
-
+btnView=view;
         EditText headingEditText ,subHeadingEditText ,tagEditText ,sourceEditText ,editorialTextEditText ;
 
         headingEditText =(EditText)findViewById(R.id.updaterActivity_heading_edittext);
@@ -133,8 +133,10 @@ public class UpdaterActivity extends AppCompatActivity {
         editorialFullInfo.getEditorialExtraInfo().setEditorialText(editorialTextEditText.getText().toString());
 
 
+        btnView.setVisibility(View.GONE);
+
         DBHelperFirebase dbHelperFirebase =new DBHelperFirebase();
-        dbHelperFirebase.insertEditorial(editorialFullInfo);
+        dbHelperFirebase.updateEditorial(editorialFullInfo ,this);
 
 
 
@@ -152,6 +154,21 @@ public class UpdaterActivity extends AppCompatActivity {
     public void onGetEditorialFullInfo(EditorialFullInfo editorialFullInfo) {
         EditText editText = (EditText) findViewById(R.id.updaterActivity_text_edittext);
         editText.setText(editorialFullInfo.getEditorialExtraInfo().getEditorialText());
+
+    }
+
+    public void updateEditorialListner(boolean b) {
+        if (b) {
+
+
+            Toast.makeText(this, "Editorial Updated  Sucessfully", Toast.LENGTH_SHORT).show();
+
+        } else {
+            btnView.setVisibility(View.VISIBLE);
+            Toast.makeText(this, "Failed to Update editorial !! please retry later", Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
 }

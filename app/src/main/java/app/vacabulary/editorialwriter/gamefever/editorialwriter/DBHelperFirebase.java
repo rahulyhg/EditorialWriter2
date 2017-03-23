@@ -5,6 +5,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
@@ -19,6 +20,8 @@ public class DBHelperFirebase {
 
 
     FirebaseDatabase database;
+    private boolean doneGeneral=false;
+    private boolean donefull=false;
 
 
     public DBHelperFirebase() {
@@ -80,7 +83,7 @@ public class DBHelperFirebase {
     /*callback Function notifying data is fetched succesfully*/
     }
 
-    public void insertEditorial(EditorialFullInfo editorialFullInfo) {
+    public void insertEditorial(EditorialFullInfo editorialFullInfo ) {
         /*insert editorials detail to two diffirent node
         * editorial gn info
         * editorial full info*/
@@ -97,11 +100,88 @@ public class DBHelperFirebase {
 
         DatabaseReference myRef2 = database.getReference("EditorialGeneralInfo/" + pushkey);
 
-        myRef2.setValue(editorialFullInfo.getEditorialGeneralInfo());
+        myRef2.setValue(editorialFullInfo.getEditorialGeneralInfo(), new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if(databaseError == null){
+
+
+                }
+            }
+        });
+
+
+
 
 
 
     }
+
+
+
+    public void insertEditorial(EditorialFullInfo editorialFullInfo , final WriterActivity writerActivity ) {
+        /*insert editorials detail to two diffirent node
+        * editorial gn info
+        * editorial full info*/
+
+        DatabaseReference myRef = database.getReference("EditorialGeneralInfo");
+        String pushkey = myRef.push().getKey();
+
+        editorialFullInfo.getEditorialExtraInfo().setEditorialId(pushkey);
+        editorialFullInfo.getEditorialGeneralInfo().setEditorialID(pushkey);
+
+
+        myRef = database.getReference("EditorialFullInfo/" + pushkey);
+        myRef.setValue(editorialFullInfo.getEditorialExtraInfo(), new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if(databaseError == null){
+                    donefull =true;
+                    if(doneGeneral) {
+                        writerActivity.insertEditorialListner(true);
+                        doneGeneral=false;
+                        donefull=false;
+                    }
+                }else{
+                    writerActivity.insertEditorialListner(false);
+                    doneGeneral=false;
+                    donefull=false;
+
+                }
+            }
+        });
+
+        DatabaseReference myRef2 = database.getReference("EditorialGeneralInfo/" + pushkey);
+
+        myRef2.setValue(editorialFullInfo.getEditorialGeneralInfo(), new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if(databaseError == null){
+                    writerActivity.insertEditorialListner(true);
+                    doneGeneral =true;
+                    if(donefull) {
+
+                        doneGeneral=false;
+                        donefull=false;
+
+                    }
+                }else{
+                        writerActivity.insertEditorialListner(false);
+                        doneGeneral=false;
+                        donefull=false;
+
+                }
+            }
+        });
+
+
+
+
+
+
+    }
+
+
 
     public void fetchEditorialList(int limit, String end, final DeleteActivity deleteActivity, boolean isFirst) {
         /*return list of editorial of size limit which end at end*/
@@ -189,7 +269,73 @@ public class DBHelperFirebase {
     }
 
 
+    public void updateEditorial(EditorialFullInfo editorialFullInfo , final UpdaterActivity updaterActivity) {
+
+
+        DatabaseReference myRef = database.getReference("EditorialGeneralInfo");
+        String pushkey = editorialFullInfo.getEditorialGeneralInfo().getEditorialID();
+
+        editorialFullInfo.getEditorialExtraInfo().setEditorialId(pushkey);
+        editorialFullInfo.getEditorialGeneralInfo().setEditorialID(pushkey);
+
+
+        myRef = database.getReference("EditorialFullInfo/" + pushkey);
+        myRef.setValue(editorialFullInfo.getEditorialExtraInfo());
+
+        DatabaseReference myRef2 = database.getReference("EditorialGeneralInfo/" + pushkey);
+
+        myRef2.setValue(editorialFullInfo.getEditorialGeneralInfo(), new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if(databaseError == null){
+                    doneGeneral =true;
+                    if(donefull) {
+                        updaterActivity.updateEditorialListner(true);
+                        doneGeneral=false;
+                        donefull=false;
+
+                    }
+                }else{
+                    updaterActivity.updateEditorialListner(false);
+                    doneGeneral=false;
+                    donefull=false;
+
+                }
+            }
+        });
 
 
 
+
+
+
+
+
+    }
+
+
+    public void deleteEditorial(String editorialID , final DeleteActivity deleteActivity) {
+        DatabaseReference myRef = database.getReference("EditorialGeneralInfo");
+
+
+
+        myRef = database.getReference("EditorialFullInfo/" + editorialID);
+        myRef.removeValue();
+
+        DatabaseReference myRef2 = database.getReference("EditorialGeneralInfo/" + editorialID);
+myRef2.removeValue(new DatabaseReference.CompletionListener() {
+    @Override
+    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+        if (databaseError == null) {
+            deleteActivity.deleteEditorialListner(true);
+        }
+    else {
+            deleteActivity.deleteEditorialListner(false);
+        }
+    }
+
+});
+
+
+    }
 }

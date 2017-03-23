@@ -1,5 +1,7 @@
 package app.vacabulary.editorialwriter.gamefever.editorialwriter;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -7,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +64,32 @@ public class DeleteActivity extends AppCompatActivity {
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerTouchListener(this, recyclerView ,new RecyclerTouchListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+                    @Override public void onItemClick(View view, final int position) {
                         // do whatever
 
                         //onItemTouch(position);
+
+                        new AlertDialog.Builder(DeleteActivity.this)
+                                .setTitle("Delete Editorial")
+                                .setMessage("Are you sure you want to delete this Editorial?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                        DBHelperFirebase db = new DBHelperFirebase();
+                                        db.deleteEditorial(editorialListArrayList.get(position).getEditorialID(),DeleteActivity.this);
+
+
+                                        editorialListArrayList.remove(position);
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
 
 
                     }
@@ -136,5 +161,18 @@ public class DeleteActivity extends AppCompatActivity {
 
     public void loadMoreClickdelete(View view) {
         loadMoreClick(view);
+    }
+
+    public void deleteEditorialListner(boolean b) {
+        if (b) {
+
+
+            Toast.makeText(this, "Editorial Deleted Sucessfully", Toast.LENGTH_SHORT).show();
+
+
+        } else {
+            Toast.makeText(this, "Failed to Delete editorial !! please retry later", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

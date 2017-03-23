@@ -21,6 +21,7 @@
             android:layout_height="match_parent"
             android:text="Write"
             android:textColor="#ffffff"
+
             android:textSize="30dp" />
 
 

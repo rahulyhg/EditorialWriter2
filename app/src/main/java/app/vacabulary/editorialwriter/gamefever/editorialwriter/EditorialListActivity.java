@@ -135,7 +135,9 @@ public class EditorialListActivity extends AppCompatActivity {
 
 
         int insertPosition = editorialListArrayList.size();
-        editorialGeneralInfoArraylist.remove(editorialGeneralInfoArraylist.size()-1);
+        if(insertPosition != 0) {
+            editorialGeneralInfoArraylist.remove(editorialGeneralInfoArraylist.size() - 1);
+        }
 
         for (EditorialGeneralInfo editorialGeneralInfo : editorialGeneralInfoArraylist){
             editorialListArrayList.add(insertPosition ,editorialGeneralInfo);

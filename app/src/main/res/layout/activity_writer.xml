@@ -40,8 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Editorial Text"
-            android:maxLines="50"
-            android:minLines="4"
+            android:maxLines="500"
+            android:minLines="5"
 
 
             />
@@ -84,6 +84,14 @@
         </LinearLayout>
 
 
+        <CheckBox
+            android:id="@+id/writerActivity_pushNotification_checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send push notification"
+            android:layout_margin="8dp"
+            />
+
         <Button
             android:id="@+id/writerActivity_upload_button"
             android:layout_width="match_parent"
@@ -92,6 +100,8 @@
             android:onClick="btnClick"
             android:text="Upload"
             android:textColor="#ffffff" />
+
+
 
 
     </LinearLayout>

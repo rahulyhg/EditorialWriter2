@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +26,15 @@ public class WriterActivity extends AppCompatActivity {
     int date, month, year;
 
     int sourceIndex ;
+
+    EditText headingEditText, subHeadingEditText, tagEditText, sourceEditText, editorialTextEditText;
+    View Buttonview;
+
+    CheckBox pushNotificationCheckBox ;
+    Button btn;
+    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times"};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +53,9 @@ public class WriterActivity extends AppCompatActivity {
         dateTextView = (TextView) findViewById(R.id.writerActivity_date_textview);
         dateTextView.setText(strDate);
         btn = (Button) findViewById(R.id.writerActivity_upload_button);
+
+        pushNotificationCheckBox = (CheckBox)findViewById(R.id.writerActivity_pushNotification_checkBox);
+        pushNotificationCheckBox.setChecked(true);
 
     }
 
@@ -77,10 +90,6 @@ public class WriterActivity extends AppCompatActivity {
 
     }
 
-    EditText headingEditText, subHeadingEditText, tagEditText, sourceEditText, editorialTextEditText;
-    View Buttonview;
-    Button btn;
-    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times"};
 
 
     public void btnClick(View view) {
@@ -132,7 +141,7 @@ public class WriterActivity extends AppCompatActivity {
         }
 
         try {
-            String subheading = editorialTextEditText.getText().toString().substring(0, 100);
+            String subheading = editorialTextEditText.getText().toString().substring(0, 150);
             editorialFullInfo.getEditorialGeneralInfo().setEditorialSubHeading(subheading);
         }catch(Exception e){
             String subheading = editorialTextEditText.getText().toString().substring(0, 50);
@@ -141,6 +150,7 @@ public class WriterActivity extends AppCompatActivity {
         }
 
         editorialFullInfo.getEditorialGeneralInfo().setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        editorialFullInfo.getEditorialGeneralInfo().setEditorialPushNotification(pushNotificationCheckBox.isChecked());
 
 
         btn.setClickable(false);

@@ -7,9 +7,10 @@ package app.vacabulary.editorialwriter.gamefever.editorialwriter;
 public class EditorialGeneralInfo {
 
 
-    private String editorialHeading ,editorialDate ,editorialSource ,editorialID ,editorialSubHeading ,editorialTag ,editorialCategory;
-     private int editorialSourceIndex ;
-    private long timeInMillis ;
+    private String editorialHeading, editorialDate, editorialSource, editorialID, editorialSubHeading, editorialTag, editorialCategory;
+    private int editorialSourceIndex;
+    private long timeInMillis;
+    boolean editorialPushNotification;
 
     public EditorialGeneralInfo() {
     }
@@ -94,5 +95,13 @@ public class EditorialGeneralInfo {
 
     public void setTimeInMillis(long timeInMillis) {
         this.timeInMillis = timeInMillis;
+    }
+
+    public boolean isEditorialPushNotification() {
+        return editorialPushNotification;
+    }
+
+    public void setEditorialPushNotification(boolean editorialPushNotification) {
+        this.editorialPushNotification = editorialPushNotification;
     }
 }

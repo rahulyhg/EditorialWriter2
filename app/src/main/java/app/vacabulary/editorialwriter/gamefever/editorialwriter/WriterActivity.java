@@ -24,6 +24,7 @@ public class WriterActivity extends AppCompatActivity {
     TextView dateTextView;
     int date, month, year;
 
+    int sourceIndex ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,12 +108,16 @@ public class WriterActivity extends AppCompatActivity {
 
         if (!sourceEditText.getText().toString().isEmpty()) {
             editorialFullInfo.getEditorialGeneralInfo().setEditorialSource(sourceEditText.getText().toString());
+            editorialFullInfo.getEditorialGeneralInfo().setEditorialSourceIndex(sourceIndex);
+
         } else {
             Toast.makeText(this, "Source field is Empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!tagEditText.getText().toString().isEmpty()) {
             editorialFullInfo.getEditorialGeneralInfo().setEditorialTag(tagEditText.getText().toString());
+            editorialFullInfo.getEditorialGeneralInfo().setEditorialCategory(tagEditText.getText().toString());
+
         } else {
             Toast.makeText(this, "Tag fiel Empty", Toast.LENGTH_SHORT).show();
             return;
@@ -135,6 +140,7 @@ public class WriterActivity extends AppCompatActivity {
 
         }
 
+        editorialFullInfo.getEditorialGeneralInfo().setTimeInMillis(Calendar.getInstance().getTimeInMillis());
 
 
         btn.setClickable(false);
@@ -184,6 +190,7 @@ public class WriterActivity extends AppCompatActivity {
                 // the user clicked on colors[which]
                 sourceEditText = (EditText) findViewById(R.id.writerActivity_source_edittext);
 
+                sourceIndex =which;
                 sourceEditText.setText(sources[which]);
 
             }

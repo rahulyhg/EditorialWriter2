@@ -32,7 +32,7 @@ public class WriterActivity extends AppCompatActivity {
 
     CheckBox pushNotificationCheckBox ;
     Button btn;
-    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times"};
+    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times" ,"Indian Express" ,"TOI"};
 
 
     @Override

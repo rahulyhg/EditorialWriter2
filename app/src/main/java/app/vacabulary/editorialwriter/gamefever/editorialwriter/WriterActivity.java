@@ -27,12 +27,14 @@ public class WriterActivity extends AppCompatActivity {
 
     int sourceIndex ;
 
-    EditText headingEditText, subHeadingEditText, tagEditText, sourceEditText, editorialTextEditText;
+    EditText headingEditText, subHeadingEditText, tagEditText, sourceEditText, editorialTextEditText ,sourceLinkTextEditText;
     View Buttonview;
 
     CheckBox pushNotificationCheckBox ;
     Button btn;
-    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times" ,"Indian Express" ,"TOI"};
+    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times" ,"Indian Express" ,"TOI","Hindustan Times","The Telegraph" ,"NY Times" ,"Live Mint","Business Standard","Other"};
+    CharSequence category[] = new CharSequence[] {"Agriculture","Business","Economy","Education","Finance","Forign Affair","Health","History","India","International","Interview","Judicial" ,"Policy","Politics","Sci-Tech","Sports","Other","Environment","Social"};
+    private int categoryIndex;
 
 
     @Override
@@ -101,6 +103,10 @@ public class WriterActivity extends AppCompatActivity {
         tagEditText = (EditText) findViewById(R.id.writerActivity_tag_edittext);
         sourceEditText = (EditText) findViewById(R.id.writerActivity_source_edittext);
         editorialTextEditText = (EditText) findViewById(R.id.writerActivity_text_edittext);
+        sourceLinkTextEditText =(EditText)findViewById(R.id.writerActivity_sourceLink_edittext);
+
+        CheckBox mustReadCheckBox = (CheckBox)findViewById(R.id.writerActivity_mustRead_checkBox);
+
 
         EditorialFullInfo editorialFullInfo = new EditorialFullInfo(new EditorialGeneralInfo(), new EditorialExtraInfo());
 
@@ -126,6 +132,7 @@ public class WriterActivity extends AppCompatActivity {
         if (!tagEditText.getText().toString().isEmpty()) {
             editorialFullInfo.getEditorialGeneralInfo().setEditorialTag(tagEditText.getText().toString());
             editorialFullInfo.getEditorialGeneralInfo().setEditorialCategory(tagEditText.getText().toString());
+            editorialFullInfo.getEditorialGeneralInfo().setEditorialCategoryIndex(categoryIndex);
 
         } else {
             Toast.makeText(this, "Tag fiel Empty", Toast.LENGTH_SHORT).show();
@@ -140,6 +147,9 @@ public class WriterActivity extends AppCompatActivity {
             return;
         }
 
+        editorialFullInfo.getEditorialGeneralInfo().setEditorialSourceLink(sourceLinkTextEditText.getText().toString().trim());
+
+
         try {
             String subheading = editorialTextEditText.getText().toString().substring(0, 150);
             editorialFullInfo.getEditorialGeneralInfo().setEditorialSubHeading(subheading);
@@ -152,6 +162,7 @@ public class WriterActivity extends AppCompatActivity {
         editorialFullInfo.getEditorialGeneralInfo().setTimeInMillis(Calendar.getInstance().getTimeInMillis());
         editorialFullInfo.getEditorialGeneralInfo().setEditorialPushNotification(pushNotificationCheckBox.isChecked());
 
+        editorialFullInfo.getEditorialGeneralInfo().setMustRead(mustReadCheckBox.isChecked());
 
         btn.setClickable(false);
         Toast.makeText(this, "Posting Editorial", Toast.LENGTH_SHORT).show();
@@ -178,6 +189,7 @@ public class WriterActivity extends AppCompatActivity {
             editorialTextEditText.setText("");
             tagEditText.setText("");
             tagEditText.setText("");
+            sourceLinkTextEditText.setText("");
             Toast.makeText(this, "Editorial Posted Sucessfully", Toast.LENGTH_SHORT).show();
 
         } else {
@@ -202,6 +214,23 @@ public class WriterActivity extends AppCompatActivity {
 
                 sourceIndex =which;
                 sourceEditText.setText(sources[which]);
+
+            }
+        });
+        builder.show();
+    }
+
+    public void openCategorySelection(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose source");
+        builder.setItems(category, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on colors[which]
+                tagEditText = (EditText) findViewById(R.id.writerActivity_tag_edittext);
+
+                categoryIndex =which;
+                tagEditText.setText(category[which]);
 
             }
         });

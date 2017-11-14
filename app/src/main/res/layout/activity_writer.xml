@@ -50,8 +50,11 @@
             android:id="@+id/writerActivity_tag_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:hint="Tag" />
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="Tag"
+            android:onClick="openCategorySelection"
+            />
 
         <EditText
             android:id="@+id/writerActivity_source_edittext"
@@ -62,6 +65,14 @@
             android:hint="Source"
             android:onClick="openSourceSelection" />
 
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Source link"
+            android:id="@+id/writerActivity_sourceLink_edittext"
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,6 +100,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Send push notification"
+            android:layout_margin="8dp"
+            />
+
+        <CheckBox
+            android:id="@+id/writerActivity_mustRead_checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Must Read"
             android:layout_margin="8dp"
             />
 

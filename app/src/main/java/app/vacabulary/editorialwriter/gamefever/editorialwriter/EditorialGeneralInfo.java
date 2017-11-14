@@ -7,10 +7,11 @@ package app.vacabulary.editorialwriter.gamefever.editorialwriter;
 public class EditorialGeneralInfo {
 
 
-    private String editorialHeading, editorialDate, editorialSource, editorialID, editorialSubHeading, editorialTag, editorialCategory;
-    private int editorialSourceIndex;
+    private String editorialHeading, editorialDate, editorialSource, editorialID, editorialSubHeading, editorialTag, editorialCategory ,editorialSourceLink;
+    private int editorialSourceIndex ,editorialCategoryIndex ,editorialLike ;
     private long timeInMillis;
     boolean editorialPushNotification;
+    boolean mustRead;
 
     public EditorialGeneralInfo() {
     }
@@ -103,5 +104,38 @@ public class EditorialGeneralInfo {
 
     public void setEditorialPushNotification(boolean editorialPushNotification) {
         this.editorialPushNotification = editorialPushNotification;
+    }
+
+    public String getEditorialSourceLink() {
+        return editorialSourceLink;
+    }
+
+    public void setEditorialSourceLink(String editorialSourceLink) {
+        this.editorialSourceLink = editorialSourceLink;
+    }
+
+    public int getEditorialCategoryIndex() {
+        return editorialCategoryIndex;
+    }
+
+    public void setEditorialCategoryIndex(int editorialCategoryIndex) {
+        this.editorialCategoryIndex = editorialCategoryIndex;
+    }
+
+    public int getEditorialLike() {
+        return editorialLike;
+    }
+
+    public void setEditorialLike(int editorialLike) {
+        this.editorialLike = editorialLike;
+    }
+
+
+    public boolean isMustRead() {
+        return mustRead;
+    }
+
+    public void setMustRead(boolean mustRead) {
+        this.mustRead = mustRead;
     }
 }

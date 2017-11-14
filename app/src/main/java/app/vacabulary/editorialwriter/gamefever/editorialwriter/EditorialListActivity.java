@@ -1,6 +1,8 @@
 package app.vacabulary.editorialwriter.gamefever.editorialwriter;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +78,8 @@ public class EditorialListActivity extends AppCompatActivity {
 
                     @Override public void onLongItemClick(View view, int position) {
                         // do whatever
+
+                        onItemLongClick(position);
                     }
                 })
         );
@@ -95,6 +100,37 @@ public class EditorialListActivity extends AppCompatActivity {
         }
 
 
+
+    }
+
+    private void onItemLongClick(final int position) {
+
+
+        new AlertDialog.Builder(EditorialListActivity.this)
+                .setTitle("Send Notification")
+                .setMessage("Want to sent notification for this editorial")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendNotification(position);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+    }
+
+    private void sendNotification(int position) {
+        new DBHelperFirebase().sendNotification(editorialListArrayList.get(position).getEditorialID(), new DBHelperFirebase.SendNotificationListener() {
+            @Override
+            public void onNotificationSent(boolean isSuccessful) {
+                Toast.makeText(EditorialListActivity.this, "Notification Sent "+isSuccessful, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

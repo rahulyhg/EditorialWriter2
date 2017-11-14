@@ -1,5 +1,10 @@
 package app.vacabulary.editorialwriter.gamefever.editorialwriter;
 
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -314,6 +319,23 @@ public class DBHelperFirebase {
     }
 
 
+    public void sendNotification(String editorialID , final SendNotificationListener sendNotificationListener){
+
+        DatabaseReference databaseReference = database.getReference("EditorialGeneralInfo/"+editorialID+"/editorialPushNotification");
+
+        databaseReference.setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    sendNotificationListener.onNotificationSent(true);
+                }else {
+                    sendNotificationListener.onNotificationSent(false);
+                }
+            }
+        });
+
+    }
+
     public void deleteEditorial(String editorialID , final DeleteActivity deleteActivity) {
         DatabaseReference myRef = database.getReference("EditorialGeneralInfo");
 
@@ -338,4 +360,10 @@ myRef2.removeValue(new DatabaseReference.CompletionListener() {
 
 
     }
+
+
+    public interface SendNotificationListener{
+        public void onNotificationSent(boolean isSuccessful);
+    }
+
 }

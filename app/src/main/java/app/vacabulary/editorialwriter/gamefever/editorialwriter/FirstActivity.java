@@ -118,4 +118,11 @@ pd.dismiss();
 
 
     }
+
+    public void openVocabularyWriter(View view) {
+        Intent intent = new Intent(this , VocabularyActivity.class);
+        startActivity(intent);
+
+
+    }
 }

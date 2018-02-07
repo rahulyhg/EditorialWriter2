@@ -32,8 +32,8 @@ public class WriterActivity extends AppCompatActivity {
 
     CheckBox pushNotificationCheckBox ;
     Button btn;
-    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times" ,"Indian Express" ,"TOI","Hindustan Times","The Telegraph" ,"NY Times" ,"Live Mint","Business Standard","Other"};
-    CharSequence category[] = new CharSequence[] {"Agriculture","Business","Economy","Education","Finance","Forign Affair","Health","History","India","International","Interview","Judicial" ,"Policy","Politics","Sci-Tech","Sports","Other","Environment","Social"};
+    CharSequence sources[] = new CharSequence[] {"The Hindu", "Financial Express", "Economic Times" ,"Indian Express" ,"TOI","Hindustan Times","The Telegraph" ,"NY Times" ,"Live Mint","The Tribune","Other", "PIB Summary","Down To Earth","Economic And Political Weekly"};
+    CharSequence category[] = new CharSequence[] {"Agriculture","Bilateral Ties","Economy","Education","Finance","Foreign affairs","Health","History","India","International","Interview","Judicial" ,"Policy","Politics","Sci-Tech","Sports","Other","Environment","National Issues"};
     private int categoryIndex;
 
 

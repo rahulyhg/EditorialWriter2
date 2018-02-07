@@ -3,6 +3,7 @@ package app.vacabulary.editorialwriter.gamefever.editorialwriter;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
@@ -14,6 +15,7 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -361,6 +363,29 @@ myRef2.removeValue(new DatabaseReference.CompletionListener() {
 
     }
 
+    public void insertVocabularyWord(Vocabulary vocab, final VocabularyListener vocabularyListener ){
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("Vocabulary").document(vocab.getmWord()).set(vocab)
+        .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                vocabularyListener.onVocabularyInsert(true);
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                vocabularyListener.onVocabularyInsert(false);
+            }
+        });
+
+    }
+
+
+    public interface VocabularyListener{
+        public void onVocabularyInsert(boolean isSuccessful);
+    }
 
     public interface SendNotificationListener{
         public void onNotificationSent(boolean isSuccessful);

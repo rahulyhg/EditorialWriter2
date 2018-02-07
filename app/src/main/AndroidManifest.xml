@@ -8,9 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WriterActivity">
-
-        </activity>
+        <activity android:name=".WriterActivity" />
         <activity android:name=".EditorialListActivity" />
         <activity android:name=".UpdaterActivity" />
         <activity android:name=".DeleteActivity" />
@@ -21,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".VocabularyActivity"></activity>
     </application>
 
 </manifest>

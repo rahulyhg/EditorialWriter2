@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.vacabulary.editorialwriter.gamefever.editorialwriter.VocabularyActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Word"
+            android:id="@+id/vocabularyActivity_word_editText"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Part of Speech"
+            android:id="@+id/vocabularyActivity_partOfSpeech_editText"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Meaning"
+            android:id="@+id/vocabularyActivity_meaning_editText"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hindi Meaning"
+            android:id="@+id/vocabularyActivity_hindiMeaning_editText"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Synonyms"
+            android:id="@+id/vocabularyActivity_synonyms_editText"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Antonyms"
+            android:id="@+id/vocabularyActivity_antonyms_editText"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Form"
+            android:id="@+id/vocabularyActivity_form_editText"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Example"
+            android:id="@+id/vocabularyActivity_example_editText"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Related"
+            android:id="@+id/vocabularyActivity_related_editText"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Image URL"
+            android:id="@+id/vocabularyActivity_imageURL_editText"
+            />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload"
+            android:onClick="onUploadClick"
+            />
+
+
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

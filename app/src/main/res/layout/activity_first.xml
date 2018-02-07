@@ -73,5 +73,27 @@
 
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="16dp"
+
+        android:onClick="openVocabularyWriter"
+
+        app:cardBackgroundColor="@color/colorAccent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Vocabulary"
+            android:textColor="#ffffff"
+            android:textSize="30dp"
+
+            />
+
+
+    </android.support.v7.widget.CardView>
+
 
 </LinearLayout>
